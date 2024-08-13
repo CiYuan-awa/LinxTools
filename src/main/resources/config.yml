@@ -1,0 +1,9 @@
+LinxTools:
+
+  MongoDB:
+    IP: 127.0.0.1
+    Port: 27017
+    DataBase: LinxTools
+    Collection: Players
+
+  ReplaceMotd: true
