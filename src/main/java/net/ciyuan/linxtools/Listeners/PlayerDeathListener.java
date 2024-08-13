@@ -21,7 +21,7 @@ public class PlayerDeathListener implements Listener
 {
     private static void AddDeathLocation(String Value, String UUID)
     {
-        DataWrapper.ModifyUserProfile("DeathLocations", Value, UUID);
+        DataWrapper.AddUserProfile("DeathLocations", Value, UUID);
     }
 
     public static int GetDeaths(String UUID)

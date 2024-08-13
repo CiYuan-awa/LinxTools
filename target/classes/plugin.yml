@@ -7,7 +7,7 @@ description: Server Tools.
 
 commands:
   gm:
-    description: 切换游戏模式！
+    description: 切换游戏模式
     usage: |
       §d切换游戏模式命令用法:
       §b/gm §a0§f为§a生存 §a1§f为§a创造 §a2§f为§a冒险 §a3§f为§a旁观
@@ -17,21 +17,36 @@ commands:
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
   linx:
     aliases: [linxtools]
-    description: 切换游戏模式！
+    description: 插件主命令
     permission: linxtools.maincommand
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
   update:
     aliases: [upd, updatedata, updateuserdata]
-    description: 切换游戏模式！
+    description: 更新插件数据
     permission: linxtools.update
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
   suicide:
     aliases: [killme]
-    description: 自杀！
+    description: 自杀
     permission: linxtools.suicide
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
   back:
     aliases: [returntodeath]
-    description: 回到死亡地点！
+    description: 回到死亡地点
     permission: linxtools.back
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  warp:
+    description: 传送到地标
+    usage: §f输入 §b/warp [设置的地标] §f来传送到该地标。
+    permission: linxtools.warp
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  setwarp:
+    description: 设置地标
+    usage: §f输入 §b/setwarp [地标名] §f来设置一个地标。
+    permission: linxtools.setwarp
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  delwarp:
+    description: 删除地标
+    usage: §f输入 §b/delwarp [设置的地标] §f来删除该地标。
+    permission: linxtools.delwarp
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)

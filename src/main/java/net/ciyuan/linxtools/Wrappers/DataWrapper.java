@@ -13,10 +13,9 @@ import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import javax.print.Doc;
+import javax.xml.crypto.Data;
+import java.util.*;
 
 import static net.ciyuan.linxtools.LinxTools.ConsoleLogger;
 
@@ -26,6 +25,7 @@ public class DataWrapper
     public static MongoClient Cli;
     public static MongoDatabase DB;
     public static MongoCollection<Document> MainCollection;
+    public static MongoCollection<Document> DataCollection;
     public static void InitConnection()
     {
         ConfigurationUtil.RefreshConfig();
@@ -35,11 +35,37 @@ public class DataWrapper
         {
             Cli = MongoClients.create(Connection);
             DB = Cli.getDatabase(LinxTools.Config.getString("LinxTools.MongoDB.DataBase"));
+            DataCollection = DB.getCollection("Data");
             MainCollection = DB.getCollection(LinxTools.Config.getString("LinxTools.MongoDB.Collection"));
         }
         catch (Exception ex)
         {
             ConsoleLogger.warning(ex.toString());
+        }
+    }
+
+
+    public static void UpdateData()
+    {
+        if (!IsDataExists("Warps"))
+        {
+            HashMap<String, String> DataInfo = new HashMap<>();
+            CreateData("Warps", DataInfo);
+        }
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            HashMap<String, Object> PlayersInfo = new HashMap<>();
+            String PlayerUUID = player.getUniqueId().toString();
+            if (DataWrapper.IsUserExists(PlayerUUID))
+            {
+                ModifyUserProfile(PlayerUUID, GetDeathLocation(PlayerUUID).size() + 1);
+                continue;
+            }
+            PlayersInfo.put("UUID", PlayerUUID);
+            PlayersInfo.put("InGameName", player.getName());
+            PlayersInfo.put("Deaths", 0);
+            PlayersInfo.put("DeathLocations", new LinkedList<String>());
+            DataWrapper.CreateUserProfile(PlayersInfo);
         }
     }
 
@@ -61,6 +87,78 @@ public class DataWrapper
         return new HashMap<>(Doc);
     }
 
+    public static boolean IsUserExists(String UUID)
+    {
+        Document Temp = MainCollection.find(Filters.eq("UUID", UUID)).first();
+        if (Temp != null) return true;
+        else return false;
+    }
+
+    public static boolean IsDataExists(String Key)
+    {
+        Document Temp = DataCollection.find(Filters.exists(Key)).first();
+        return Temp != null;
+    }
+
+    public static void AddUserProfile(String Key, Object Value, String UUID)
+    {
+        MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.push(Key, Value));
+    }
+
+    private static void ModifyUserProfile(String Key, Object Value, String UUID)
+    {
+        MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.set(Key, Value));
+    }
+
+    private static void ModifyUserProfile(String UUID, int Count)
+    {
+        MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.set("Deaths", Count));
+    }
+
+    public static void CreateData(String Key, Object Value)
+    {
+        Document Doc = new Document();
+        Doc.append(Key, Value);
+        DataCollection.insertOne(Doc);
+        ConsoleLogger.info("Successfully updated data profiles.");
+    }
+
+    public static void AddData(String ListName, String Key, Object Value)
+    {
+        DataCollection.updateOne(Filters.exists(ListName), Updates.set(ListName + "." + Key, Value));
+    }
+
+    public static void RemoveData(String ListName, String Key)
+    {
+        DataCollection.updateOne(Filters.exists(ListName), Updates.unset(ListName + "." + Key));
+    }
+
+    public static boolean IsWarpExists(String Warp)
+    {
+        return GetWarpsMap().containsKey(Warp);
+    }
+
+    public static HashMap<String, String> GetWarpsMap()
+    {
+        Bson Filter = Filters.exists("Warps");
+        Document Doc = DataCollection.find(Filter).first();
+
+        if (Doc != null && Doc.containsKey("Warps"))
+        {
+            Document WarpsDoc = (Document) Doc.get("Warps");
+            HashMap<String, String> WarpsMap = new HashMap<>();
+            for (Map.Entry<String, Object> Entry : WarpsDoc.entrySet())
+            {
+                WarpsMap.put(Entry.getKey(), Entry.getValue().toString());
+            }
+            return WarpsMap;
+        }
+        else
+        {
+            return new HashMap<>();
+        }
+    }
+
     public static List<String> GetDeathLocation(String UUID)
     {
         Bson Filter = Filters.eq("UUID", UUID);
@@ -75,42 +173,5 @@ public class DataWrapper
             ConsoleLogger.warning("Document not found or DeathPoints field is missing.");
             return null;
         }
-    }
-
-    public static void UpdateData()
-    {
-        HashMap<String, Object> PlayersInfo = new HashMap<>();
-        for (Player player : Bukkit.getOnlinePlayers())
-        {
-            String PlayerUUID = player.getUniqueId().toString();
-            if (DataWrapper.IsUserExists(PlayerUUID))
-            {
-                UpdateDeaths(PlayerUUID, GetDeathLocation(PlayerUUID).size() + 1);
-                continue;
-            }
-            PlayersInfo.put("UUID", PlayerUUID);
-            PlayersInfo.put("InGameName", player.getName());
-            PlayersInfo.put("Deaths", 0);
-            PlayersInfo.put("DeathLocations", new LinkedList<String>());
-            DataWrapper.CreateUserProfile(PlayersInfo);
-            PlayersInfo.clear();
-        }
-    }
-
-    public static boolean IsUserExists(String UUID)
-    {
-        Document Temp = MainCollection.find(Filters.eq("UUID", UUID)).first();
-        if (Temp != null) return true;
-        else return false;
-    }
-
-    public static void ModifyUserProfile(String Key, Object Value, String UUID)
-    {
-        MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.push(Key, Value));
-    }
-
-    private static void UpdateDeaths(String UUID, int Count)
-    {
-        MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.set("Deaths", Count));
     }
 }
