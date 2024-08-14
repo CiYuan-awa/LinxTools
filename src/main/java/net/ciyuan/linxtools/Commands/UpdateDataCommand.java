@@ -16,6 +16,7 @@ public class UpdateDataCommand implements CommandExecutor
             return false;
         }
         DataWrapper.UpdateData();
+        Sender.sendMessage("§a成功更新所有数据。");
         return true;
     }
 }

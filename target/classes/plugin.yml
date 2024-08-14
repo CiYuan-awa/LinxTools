@@ -9,7 +9,7 @@ commands:
   gm:
     description: 切换游戏模式
     usage: |
-      §d切换游戏模式命令用法:
+      §f§l切换游戏模式命令用法:
       §b/gm §a0§f为§a生存 §a1§f为§a创造 §a2§f为§a冒险 §a3§f为§a旁观
       §f或者
       §b/gm §a0§f为§a生存 §a1§f为§a创造 §a2§f为§a冒险 §a3§f为§a旁观 §6[玩家]
@@ -49,4 +49,8 @@ commands:
     description: 删除地标
     usage: §f输入 §b/delwarp [设置的地标] §f来删除该地标。
     permission: linxtools.delwarp
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  afk:
+    description: 挂机
+    permission: linxtools.afk
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)

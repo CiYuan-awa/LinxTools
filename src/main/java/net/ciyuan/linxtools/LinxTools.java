@@ -4,10 +4,7 @@ import net.ciyuan.linxtools.Commands.*;
 import net.ciyuan.linxtools.Commands.TabExecutors.MainCmdExecutor;
 import net.ciyuan.linxtools.Commands.TabExecutors.SwitchGamemodeCmdExecutor;
 import net.ciyuan.linxtools.Commands.TabExecutors.WarpCmdExecutor;
-import net.ciyuan.linxtools.Listeners.ChatListener;
-import net.ciyuan.linxtools.Listeners.PingListener;
-import net.ciyuan.linxtools.Listeners.PlayerDeathListener;
-import net.ciyuan.linxtools.Listeners.PlayerJoinListener;
+import net.ciyuan.linxtools.Listeners.*;
 import net.ciyuan.linxtools.Utils.ConfigurationUtil;
 import net.ciyuan.linxtools.Wrappers.DataWrapper;
 import org.bukkit.Bukkit;
@@ -15,6 +12,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -35,24 +33,26 @@ public final class LinxTools extends JavaPlugin
         ConfigurationUtil.InitProfile();
         DataWrapper.InitConnection();
 
-        Instance.getCommand("linx").setExecutor(new MainCommand());
-        Instance.getCommand("gm").setExecutor(new SwitchGamemodeCommand());
-        Instance.getCommand("update").setExecutor(new UpdateDataCommand());
-        Instance.getCommand("suicide").setExecutor(new SuicideCommand());
-        Instance.getCommand("back").setExecutor(new BackCommand());
-        Instance.getCommand("warp").setExecutor(new WarpCommand());
-        Instance.getCommand("setwarp").setExecutor(new SetWarpCommand());
-        Instance.getCommand("delwarp").setExecutor(new DeleteWarpCommand());
+        Objects.requireNonNull(Instance.getCommand("linx")).setExecutor(new MainCommand());
+        Objects.requireNonNull(Instance.getCommand("gm")).setExecutor(new SwitchGamemodeCommand());
+        Objects.requireNonNull(Instance.getCommand("update")).setExecutor(new UpdateDataCommand());
+        Objects.requireNonNull(Instance.getCommand("suicide")).setExecutor(new SuicideCommand());
+        Objects.requireNonNull(Instance.getCommand("afk")).setExecutor(new AFKCommand());
+        Objects.requireNonNull(Instance.getCommand("back")).setExecutor(new BackCommand());
+        Objects.requireNonNull(Instance.getCommand("warp")).setExecutor(new WarpCommand());
+        Objects.requireNonNull(Instance.getCommand("setwarp")).setExecutor(new SetWarpCommand());
+        Objects.requireNonNull(Instance.getCommand("delwarp")).setExecutor(new DeleteWarpCommand());
 
-        Instance.getCommand("linx").setTabCompleter(new MainCmdExecutor());
-        Instance.getCommand("gm").setTabCompleter(new SwitchGamemodeCmdExecutor());
-        Instance.getCommand("warp").setTabCompleter(new WarpCmdExecutor());
-        Instance.getCommand("delwarp").setTabCompleter(new WarpCmdExecutor());
+        Objects.requireNonNull(Instance.getCommand("linx")).setTabCompleter(new MainCmdExecutor());
+        Objects.requireNonNull(Instance.getCommand("gm")).setTabCompleter(new SwitchGamemodeCmdExecutor());
+        Objects.requireNonNull(Instance.getCommand("warp")).setTabCompleter(new WarpCmdExecutor());
+        Objects.requireNonNull(Instance.getCommand("delwarp")).setTabCompleter(new WarpCmdExecutor());
 
         Bukkit.getPluginManager().registerEvents(new ChatListener(), Instance);
         Bukkit.getPluginManager().registerEvents(new PingListener(), Instance);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), Instance);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), Instance);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), Instance);
 
         ConsoleLogger.info("Welcome to use Linx Tools!");
         ConsoleLogger.info("By CiYuan!");

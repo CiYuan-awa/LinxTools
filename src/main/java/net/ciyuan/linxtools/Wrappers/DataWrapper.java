@@ -58,13 +58,14 @@ public class DataWrapper
             String PlayerUUID = player.getUniqueId().toString();
             if (DataWrapper.IsUserExists(PlayerUUID))
             {
-                ModifyUserProfile(PlayerUUID, GetDeathLocation(PlayerUUID).size() + 1);
+                ModifyUserProfile(PlayerUUID, "Deaths", GetDeathLocation(PlayerUUID).size() + 1);
                 continue;
             }
             PlayersInfo.put("UUID", PlayerUUID);
             PlayersInfo.put("InGameName", player.getName());
             PlayersInfo.put("Deaths", 0);
             PlayersInfo.put("DeathLocations", new LinkedList<String>());
+            PlayersInfo.put("IsAFK", false);
             DataWrapper.CreateUserProfile(PlayersInfo);
         }
     }
@@ -105,14 +106,14 @@ public class DataWrapper
         MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.push(Key, Value));
     }
 
-    private static void ModifyUserProfile(String Key, Object Value, String UUID)
+    public static void ModifyUserProfile(String UUID, String Key, int Value)
     {
         MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.set(Key, Value));
     }
 
-    private static void ModifyUserProfile(String UUID, int Count)
+    public static void ModifyUserProfile(String UUID, String Key, boolean Value)
     {
-        MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.set("Deaths", Count));
+        MainCollection.findOneAndUpdate(Filters.eq("UUID", UUID), Updates.set(Key, Value));
     }
 
     public static void CreateData(String Key, Object Value)

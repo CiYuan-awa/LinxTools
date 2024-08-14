@@ -50,3 +50,7 @@ commands:
     usage: §f输入 §b/delwarp [设置的地标] §f来删除该地标。
     permission: linxtools.delwarp
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  afk:
+    description: 挂机
+    permission: linxtools.afk
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)

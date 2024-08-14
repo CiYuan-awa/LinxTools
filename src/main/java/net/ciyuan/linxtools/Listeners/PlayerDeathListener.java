@@ -66,7 +66,7 @@ public class PlayerDeathListener implements Listener
                     }
                 }
                 String attackerName = damager.getName();
-                event.setDeathMessage(ChatColor.RED + PName + ChatColor.WHITE + " 被 " + ChatColor.GREEN + attackerName + ChatColor.WHITE + " 用 " + ChatColor.AQUA + ChatColor.ITALIC + "[" + GetMainHandItemName(player) + "]" + ChatColor.GOLD + " 猎杀" + ChatColor.WHITE + "。" + " §f这是Ta的第 §e#" + GetDeaths(event.getEntity().getUniqueId().toString()) + " §f次死亡！");
+                event.setDeathMessage(ChatColor.RED + PName + ChatColor.WHITE + " 被 " + ChatColor.GREEN + attackerName + (!(GetMainHandItemName(player).isEmpty()) ? ChatColor.WHITE + " 用 " + ChatColor.AQUA + ChatColor.ITALIC + "[" + GetMainHandItemName(player) + "]" : "") + ChatColor.GOLD + " 猎杀" + ChatColor.WHITE + "。" + " §f这是Ta的第 §e#" + GetDeaths(event.getEntity().getUniqueId().toString()) + " §f次死亡！");
                 event.getEntity().sendTitle(ChatColor.RED + "你已被" + ChatColor.GREEN + attackerName + ChatColor.GOLD + "猎杀！", ChatColor.AQUA + "菜！", 10, 100, 20);
                 return;
             }
@@ -116,11 +116,14 @@ public class PlayerDeathListener implements Listener
             default -> event.setDeathMessage(ChatColor.RED + PName + ChatColor.WHITE + " 死得不明不白！" + " §f这是Ta的第 §e#" + GetDeaths(event.getEntity().getUniqueId().toString()) + " §f次死亡！");
         }
     }
-    public static String GetMainHandItemName(Player player) {
+    public static String GetMainHandItemName(Player player)
+    {
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-        if (itemInMainHand != null && itemInMainHand.hasItemMeta()) {
+        if (itemInMainHand != null && itemInMainHand.hasItemMeta())
+        {
             ItemMeta itemMeta = itemInMainHand.getItemMeta();
-            if (itemMeta.hasDisplayName()) {
+            if (itemMeta.hasDisplayName())
+            {
                 return itemMeta.getDisplayName();
             }
         }
