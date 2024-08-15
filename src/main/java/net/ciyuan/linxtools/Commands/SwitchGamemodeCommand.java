@@ -19,11 +19,7 @@ public class SwitchGamemodeCommand implements CommandExecutor {
             Sender.sendMessage(ChatColor.DARK_RED + "该命令只有游戏内玩家可用！");
             return false;
         } else { player = (Player) Sender; }
-        if (Args.length == 0)
-        {
-            player.sendMessage(ChatColor.RED + "请输入游戏模式！用法：");
-            return false;
-        }
+        if (Args.length == 0) return false;
         else if (Args.length == 1)
         {
             switch (Args[0]) {

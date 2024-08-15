@@ -10,9 +10,8 @@ commands:
     description: 切换游戏模式
     usage: |
       §f§l切换游戏模式命令用法:
-      §b/gm §a0§f为§a生存 §a1§f为§a创造 §a2§f为§a冒险 §a3§f为§a旁观
-      §f或者
       §b/gm §a0§f为§a生存 §a1§f为§a创造 §a2§f为§a冒险 §a3§f为§a旁观 §6[玩家]
+      §e注意：§6[玩家] §e参数是可选的。
     permission: linxtools.gamemode
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
   linx:
@@ -53,4 +52,17 @@ commands:
   afk:
     description: 挂机
     permission: linxtools.afk
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  fly:
+    description: 飞行模式
+    permission: linxtools.fly
+    usage: |
+      §f输入 §b/fly §6[玩家名] §f来启用飞行模式。
+      §e注意：§6[玩家] §e参数是可选的。
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  invsee:
+    description: 查看玩家背包
+    permission: linxtools.invsee
+    usage: |
+      §f输入 §b/invsee [玩家名] §f来查看该玩家的背包。
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)

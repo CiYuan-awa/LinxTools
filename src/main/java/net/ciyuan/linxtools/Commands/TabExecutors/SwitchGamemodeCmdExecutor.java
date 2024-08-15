@@ -1,12 +1,10 @@
 package net.ciyuan.linxtools.Commands.TabExecutors;
 
-import org.bukkit.Bukkit;
+import net.ciyuan.linxtools.Utils.BukkitUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,27 +43,7 @@ public class SwitchGamemodeCmdExecutor implements TabExecutor
         }
         if (Args.length == 2)
         {
-            List<String> SecondArgTip = new ArrayList<>();
-            for (Player p : Bukkit.getOnlinePlayers())
-            {
-                SecondArgTip.add(p.getName());
-            }
-            if (Args[1].isEmpty())
-            {
-                Tips.addAll(SecondArgTip);
-                return Tips;
-            }
-            else
-            {
-                for (String SecondArg : SecondArgTip)
-                {
-                    if (SecondArg.toLowerCase().startsWith(Args[1].toLowerCase()))
-                    {
-                        Tips.add(SecondArg);
-                    }
-                }
-                return Tips;
-            }
+            return BukkitUtil.GetPlayerListForTabCompletion(Args, 1);
         }
         return Tips;
     }

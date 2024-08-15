@@ -1,5 +1,7 @@
 net\ciyuan\linxtools\Listeners\PlayerDeathListener.class
 net\ciyuan\linxtools\Utils\ColorUtil.class
+net\ciyuan\linxtools\Utils\BukkitUtil.class
+net\ciyuan\linxtools\Commands\TabExecutors\FlyCmdExecutor.class
 net\ciyuan\linxtools\Commands\BackCommand.class
 net\ciyuan\linxtools\Listeners\PlayerMoveListener.class
 net\ciyuan\linxtools\Listeners\ChatListener.class
@@ -7,6 +9,7 @@ net\ciyuan\linxtools\Listeners\PingListener.class
 net\ciyuan\linxtools\Commands\MainCommand.class
 net\ciyuan\linxtools\Listeners\PlayerDeathListener$1.class
 net\ciyuan\linxtools\Commands\AFKCommand.class
+net\ciyuan\linxtools\Commands\TabExecutors\InvSeeCmdExecutor.class
 net\ciyuan\linxtools\Listeners\ChatListener$1.class
 net\ciyuan\linxtools\Commands\DeleteWarpCommand.class
 net\ciyuan\linxtools\Commands\SwitchGamemodeCommand.class
@@ -18,7 +21,9 @@ net\ciyuan\linxtools\Commands\TabExecutors\MainCmdExecutor.class
 net\ciyuan\linxtools\Utils\ProjectUtil.class
 net\ciyuan\linxtools\Commands\WarpCommand.class
 net\ciyuan\linxtools\Wrappers\DataWrapper.class
+net\ciyuan\linxtools\Commands\InvSeeCommand.class
 net\ciyuan\linxtools\Commands\UpdateDataCommand.class
 net\ciyuan\linxtools\LinxTools.class
+net\ciyuan\linxtools\Commands\FlyCommand.class
 net\ciyuan\linxtools\Commands\TabExecutors\SwitchGamemodeCmdExecutor.class
 net\ciyuan\linxtools\Listeners\PlayerJoinListener.class
