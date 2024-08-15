@@ -6,11 +6,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public class InvSeeCommand implements CommandExecutor
 {
     @Override
-    public boolean onCommand(CommandSender Sender, Command Cmd, String Label, String[] Args)
+    public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command Cmd, @NotNull String Label, @NotNull String[] Args)
     {
         Player player;
         if (!(Sender instanceof Player))

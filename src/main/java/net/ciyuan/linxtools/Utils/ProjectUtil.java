@@ -1,5 +1,7 @@
 package net.ciyuan.linxtools.Utils;
 
+import net.ciyuan.linxtools.LinxTools;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -14,7 +16,7 @@ public class ProjectUtil
                 return Prop.getProperty("version");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LinxTools.ConsoleLogger.info(e.toString());
         }
         return "[Unknown Version]";
     }

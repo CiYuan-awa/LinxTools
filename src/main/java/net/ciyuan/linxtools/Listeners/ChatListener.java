@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Objects;
+
 public class ChatListener implements Listener
 {
     private static final long CHAT_COOLDOWN = 1500L;
@@ -34,8 +36,8 @@ public class ChatListener implements Listener
         String Suffix = "";
         try
         {
-            Prefix = user.getCachedData().getMetaData().getPrefix().replace("&", "§");
-            Suffix = user.getCachedData().getMetaData().getSuffix().replace("&", "§");
+            Prefix = Objects.requireNonNull(user.getCachedData().getMetaData().getPrefix()).replace("&", "§");
+            Suffix = Objects.requireNonNull(user.getCachedData().getMetaData().getSuffix()).replace("&", "§");
         } catch (Exception ignored) { }
         String PlayerName = Prefix + Name + Suffix;
 

@@ -7,11 +7,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class BackCommand implements CommandExecutor
 {
     @Override
-    public boolean onCommand(CommandSender Sender, Command Cmd, String Label, String[] Args)
+    public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command Cmd, @NotNull String Label, @NotNull String[] Args)
     {
         Player player;
         if (!(Sender instanceof Player))
@@ -25,7 +28,7 @@ public class BackCommand implements CommandExecutor
             Sender.sendMessage("§c该命令不需要输入参数。");
             return false;
         }
-        String[] DeathLocation = DataWrapper.GetDeathLocation(player.getUniqueId().toString()).getLast().split(" ");
+        String[] DeathLocation = Objects.requireNonNull(DataWrapper.GetDeathLocation(player.getUniqueId().toString())).getLast().split(" ");
         Location Loc = new Location(Bukkit.getServer().getWorld(DeathLocation[0]), Double.parseDouble(DeathLocation[1]), Double.parseDouble(DeathLocation[2]), Double.parseDouble(DeathLocation[3]), Float.parseFloat(DeathLocation[4]), Float.parseFloat(DeathLocation[5]));
         player.teleport(Loc);
         player.sendMessage("§a已成功回到死亡地点。");

@@ -28,7 +28,6 @@ public class BukkitUtil
         if (Args[Pos].isEmpty())
         {
             Tips.addAll(ArgTip);
-            return Tips;
         }
         else
         {
@@ -39,7 +38,7 @@ public class BukkitUtil
                     Tips.add(Arg);
                 }
             }
-            return Tips;
         }
+        return Tips;
     }
 }

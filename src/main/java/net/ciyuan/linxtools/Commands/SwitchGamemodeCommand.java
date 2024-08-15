@@ -1,6 +1,5 @@
 package net.ciyuan.linxtools.Commands;
 
-import net.ciyuan.linxtools.LinxTools;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -8,10 +7,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class SwitchGamemodeCommand implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender Sender, Command Cmd, String Label, String[] Args)
+    public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command Cmd, @NotNull String Label, @NotNull String[] Args)
     {
         Player player;
         if (!(Sender instanceof Player))

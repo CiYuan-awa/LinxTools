@@ -4,21 +4,18 @@ import net.ciyuan.linxtools.Wrappers.DataWrapper;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class WarpCmdExecutor implements TabExecutor
 {
     @Override
-    public boolean onCommand(CommandSender Sender, Command Cmd, String Label, String[] Args)
-    {
-        return false;
-    }
+    public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command Cmd, @NotNull String Label, @NotNull String[] Args) { return false; }
 
     @Override
-    public List<String> onTabComplete(CommandSender Sender, Command Cmd, String Label, String[] Args)
+    public List<String> onTabComplete(@NotNull CommandSender Sender, @NotNull Command Cmd, @NotNull String Label, @NotNull String[] Args)
     {
         LinkedList<String> Tips = new LinkedList<>();
         if (Args.length == 1)
@@ -28,7 +25,6 @@ public class WarpCmdExecutor implements TabExecutor
             if (Args[0].isEmpty())
             {
                 Tips.addAll(FirstArgTip);
-                return Tips;
             }
             else
             {
@@ -39,8 +35,8 @@ public class WarpCmdExecutor implements TabExecutor
                         Tips.add(FirstArg);
                     }
                 }
-                return Tips;
             }
+            return Tips;
         }
         return Tips;
     }

@@ -13,8 +13,6 @@ import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import javax.print.Doc;
-import javax.xml.crypto.Data;
 import java.util.*;
 
 import static net.ciyuan.linxtools.LinxTools.ConsoleLogger;
@@ -34,9 +32,9 @@ public class DataWrapper
         try
         {
             Cli = MongoClients.create(Connection);
-            DB = Cli.getDatabase(LinxTools.Config.getString("LinxTools.MongoDB.DataBase"));
+            DB = Cli.getDatabase(Objects.requireNonNull(LinxTools.Config.getString("LinxTools.MongoDB.DataBase")));
             DataCollection = DB.getCollection("Data");
-            MainCollection = DB.getCollection(LinxTools.Config.getString("LinxTools.MongoDB.Collection"));
+            MainCollection = DB.getCollection(Objects.requireNonNull(LinxTools.Config.getString("LinxTools.MongoDB.Collection")));
         }
         catch (Exception ex)
         {
@@ -58,7 +56,7 @@ public class DataWrapper
             String PlayerUUID = player.getUniqueId().toString();
             if (DataWrapper.IsUserExists(PlayerUUID))
             {
-                ModifyUserProfile(PlayerUUID, "Deaths", GetDeathLocation(PlayerUUID).size() + 1);
+                ModifyUserProfile(PlayerUUID, "Deaths", Objects.requireNonNull(GetDeathLocation(PlayerUUID)).size() + 1);
                 continue;
             }
             PlayersInfo.put("UUID", PlayerUUID);
@@ -85,14 +83,17 @@ public class DataWrapper
     {
         Bson Filter = Filters.eq("UUID", UUID);
         Document Doc = MainCollection.find(Filter).first();
-        return new HashMap<>(Doc);
+        if (Doc != null)
+        {
+            return new HashMap<>(Doc);
+        }
+        return new HashMap<>();
     }
 
     public static boolean IsUserExists(String UUID)
     {
         Document Temp = MainCollection.find(Filters.eq("UUID", UUID)).first();
-        if (Temp != null) return true;
-        else return false;
+        return Temp != null;
     }
 
     public static boolean IsDataExists(String Key)
@@ -167,6 +168,7 @@ public class DataWrapper
 
         if (Doc != null && Doc.containsKey("DeathLocations"))
         {
+            if (!(Doc instanceof List<?>)) return new LinkedList<>();
             return (List<String>) Doc.get("DeathLocations");
         }
         else

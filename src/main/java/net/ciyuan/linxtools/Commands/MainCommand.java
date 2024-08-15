@@ -5,13 +5,12 @@ import net.ciyuan.linxtools.Utils.ProjectUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-
-import java.util.logging.Logger;
+import org.jetbrains.annotations.NotNull;
 
 public class MainCommand implements CommandExecutor
 {
     @Override
-    public boolean onCommand(CommandSender Sender, Command Cmd, String Label, String[] Args)
+    public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command Cmd, @NotNull String Label, @NotNull String[] Args)
     {
         if (Args.length == 0)
         {
@@ -34,6 +33,7 @@ public class MainCommand implements CommandExecutor
                     LinxTools.ConsoleLogger.info("A player tried to get help.");
                     //写帮助内容！
                 }
+                default -> throw new IllegalStateException("Unexpected value: " + Args[0].toLowerCase());
             }
         }
         return false;

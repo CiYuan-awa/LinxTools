@@ -18,6 +18,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.Objects;
+
 public class PlayerJoinListener implements Listener
 {
 
@@ -39,26 +41,26 @@ public class PlayerJoinListener implements Listener
         String Suffix = "";
         try
         {
-            Prefix = user.getCachedData().getMetaData().getPrefix().replace("&", "§");
-            Suffix = user.getCachedData().getMetaData().getSuffix().replace("&", "§");
+            Prefix = Objects.requireNonNull(user.getCachedData().getMetaData().getPrefix()).replace("&", "§");
+            Suffix = Objects.requireNonNull(user.getCachedData().getMetaData().getSuffix()).replace("&", "§");
         } catch (Exception ignored) { }
 
         String PlayerName = Prefix + Name + Suffix;
         player.setDisplayName(PlayerName);
         player.setPlayerListName(PlayerName);
-        Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+        Scoreboard board = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
         Team team = board.getTeam(player.getName());
         if (team == null) {
             team = board.registerNewTeam(Name);
         }
         team.setPrefix(Prefix);
         team.setSuffix(Suffix);
-        team.addPlayer(player);
+        team.addEntry(player.getName());
         String Header = "&c&l辞愿 ".replace("&", "§") + "§f私人" + " &b&lSMP\n".replace("&", "§");
         String Footer = "\n&c>&a>&b> &e&nmc.iqboost.net&f &b<&a<&c<".replace("&", "§");
         player.setPlayerListHeaderFooter(Header, Footer);
 
-        if (PlayerName.equals("IQ_Boost"))
+        if (player.getName().equals("IQ_Boost"))
         {
             server.broadcastMessage(ChatColor.YELLOW + "[LinxTools] " + ChatColor.GOLD + "本插件开发者 " + PlayerName + ChatColor.GREEN + " 加入了游戏！");
         }
@@ -82,8 +84,8 @@ public class PlayerJoinListener implements Listener
         String Suffix = "";
         try
         {
-            Prefix = user.getCachedData().getMetaData().getPrefix().replace("&", "§");
-            Suffix = user.getCachedData().getMetaData().getSuffix().replace("&", "§");
+            Prefix = Objects.requireNonNull(user.getCachedData().getMetaData().getPrefix()).replace("&", "§");
+            Suffix = Objects.requireNonNull(user.getCachedData().getMetaData().getSuffix()).replace("&", "§");
         } catch (Exception ignored) { }
         String PlayerName = Prefix + Name + Suffix;
         server.broadcastMessage(ChatColor.GRAY + "[" + ChatColor.RED + "-" + ChatColor.GRAY + "] " + PlayerName);

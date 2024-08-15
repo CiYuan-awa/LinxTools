@@ -17,6 +17,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Objects;
+
 public class PlayerDeathListener implements Listener
 {
     private static void AddDeathLocation(String Value, String UUID)
@@ -35,7 +37,7 @@ public class PlayerDeathListener implements Listener
     {
         DataWrapper.UpdateData();
         Location DeathLocation = event.getEntity().getLocation();
-        String DeathLocationString = DeathLocation.getWorld().getName() + " " + DeathLocation.getX() + " " + DeathLocation.getY() + " " + DeathLocation.getZ() + " " + DeathLocation.getYaw() + " " + DeathLocation.getPitch();
+        String DeathLocationString = Objects.requireNonNull(DeathLocation.getWorld()).getName() + " " + DeathLocation.getX() + " " + DeathLocation.getY() + " " + DeathLocation.getZ() + " " + DeathLocation.getYaw() + " " + DeathLocation.getPitch();
         AddDeathLocation(DeathLocationString, event.getEntity().getUniqueId().toString());
 
         if (!SuicideCommand.DisplayDeathMessage)
@@ -84,7 +86,7 @@ public class PlayerDeathListener implements Listener
                 return;
             }
         }
-        switch (event.getEntity().getLastDamageCause().getCause())
+        switch (Objects.requireNonNull(event.getEntity().getLastDamageCause()).getCause())
         {
             case FALL -> event.setDeathMessage(ChatColor.RED + PName + ChatColor.WHITE + " 落地时忘了自救！" + " §f这是Ta的第 §e#" + GetDeaths(event.getEntity().getUniqueId().toString()) + " §f次死亡！");
             case LAVA -> event.setDeathMessage(ChatColor.RED + PName + ChatColor.WHITE + " 想要在" + ChatColor.DARK_RED + "开水" + ChatColor.WHITE + "中泡澡！" + " §f这是Ta的第 §e#" + GetDeaths(event.getEntity().getUniqueId().toString()) + " §f次死亡！");
@@ -119,13 +121,10 @@ public class PlayerDeathListener implements Listener
     public static String GetMainHandItemName(Player player)
     {
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-        if (itemInMainHand != null && itemInMainHand.hasItemMeta())
+        if (itemInMainHand.hasItemMeta())
         {
             ItemMeta itemMeta = itemInMainHand.getItemMeta();
-            if (itemMeta.hasDisplayName())
-            {
-                return itemMeta.getDisplayName();
-            }
+            if (itemMeta != null && itemMeta.hasDisplayName()) return itemMeta.getDisplayName();
         }
         return "";
     }

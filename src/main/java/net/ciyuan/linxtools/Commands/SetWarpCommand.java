@@ -7,11 +7,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class SetWarpCommand implements CommandExecutor
 {
     @Override
-    public boolean onCommand(CommandSender Sender, Command Cmd, String Label, String[] Args)
+    public boolean onCommand(@NotNull CommandSender Sender, @NotNull Command Cmd, @NotNull String Label, @NotNull String[] Args)
     {
         Player player;
         if (!(Sender instanceof Player))
@@ -29,7 +32,7 @@ public class SetWarpCommand implements CommandExecutor
         try
         {
             Location Loc = player.getLocation();
-            String WarpLocation = Loc.getWorld().getName() + " " + Loc.getX() + " " + Loc.getY() + " " + Loc.getZ() + " " + Loc.getYaw() + " " + Loc.getPitch();
+            String WarpLocation = Objects.requireNonNull(Loc.getWorld()).getName() + " " + Loc.getX() + " " + Loc.getY() + " " + Loc.getZ() + " " + Loc.getYaw() + " " + Loc.getPitch();
             DataWrapper.AddData("Warps", Args[0], WarpLocation);
             player.sendMessage("§a成功设置地标！");
             return true;
