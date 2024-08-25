@@ -69,7 +69,8 @@ commands:
   show:
     description: 展示手中物品
     permission: linxtools.show
-    usage:
+    usage: |
       §f输入 §b/show §6[玩家名] §f来展示玩家手中物品。
       §e注意：§6[玩家] §e参数是可选的。
+      §e/show [item|offhand|helmet|chestplate|leggings|boots|0|1|2|3|4|5|6|7|8]
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
