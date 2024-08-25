@@ -169,7 +169,6 @@ public class DataWrapper
 
         if (Doc != null && Doc.containsKey("DeathLocations"))
         {
-            if (!(Doc instanceof List<?>)) return new LinkedList<>();
             return (List<String>) Doc.get("DeathLocations");
         }
         else
