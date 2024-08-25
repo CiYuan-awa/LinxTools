@@ -34,6 +34,9 @@ public class PlayerJoinListener implements Listener
         e.setJoinMessage(null);
         Server server = Bukkit.getServer();
         Player player = e.getPlayer();
+        boolean AllowFlight = (boolean) DataWrapper.GetUserProfile(player.getUniqueId().toString()).get("IsFlying");
+        player.setAllowFlight(AllowFlight);
+        player.setFlying(AllowFlight);
         LuckPerms luckperms = LuckPermsProvider.get();
         User user = luckperms.getPlayerAdapter(Player.class).getUser(player);
         String Name = player.getName();

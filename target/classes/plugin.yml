@@ -66,3 +66,10 @@ commands:
     usage: |
       §f输入 §b/invsee [玩家名] §f来查看该玩家的背包。
     permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)
+  show:
+    description: 展示手中物品
+    permission: linxtools.show
+    usage:
+      §f输入 §b/show §6[玩家名] §f来展示玩家手中物品。
+      §e注意：§6[玩家] §e参数是可选的。
+    permission-message: §c明知自己没权限还来搞 ( ͡° ͜ʖ ͡°)

@@ -38,6 +38,7 @@ public final class LinxTools extends JavaPlugin
         Objects.requireNonNull(Instance.getCommand("afk")).setExecutor(new AFKCommand());
         Objects.requireNonNull(Instance.getCommand("fly")).setExecutor(new FlyCommand());
         Objects.requireNonNull(Instance.getCommand("invsee")).setExecutor(new InvSeeCommand());
+        Objects.requireNonNull(Instance.getCommand("show")).setExecutor(new ShowCommand());
         Objects.requireNonNull(Instance.getCommand("back")).setExecutor(new BackCommand());
         Objects.requireNonNull(Instance.getCommand("warp")).setExecutor(new WarpCommand());
         Objects.requireNonNull(Instance.getCommand("setwarp")).setExecutor(new SetWarpCommand());

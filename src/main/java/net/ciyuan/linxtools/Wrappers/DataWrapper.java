@@ -64,6 +64,7 @@ public class DataWrapper
             PlayersInfo.put("Deaths", 0);
             PlayersInfo.put("DeathLocations", new LinkedList<String>());
             PlayersInfo.put("IsAFK", false);
+            PlayersInfo.put("IsFlying", false);
             DataWrapper.CreateUserProfile(PlayersInfo);
         }
     }
