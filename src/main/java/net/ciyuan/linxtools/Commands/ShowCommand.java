@@ -133,7 +133,7 @@ public class ShowCommand implements CommandExecutor
         Slot7(7, "has"),
         Slot8(8, "has");
 
-        private static final @NotNull Map<String, Slot> SlotMap = new HashMap<>();
+        private static Map<String, Slot> SlotMap;
 
         private final @NotNull Function<@NotNull Player, @Nullable ItemStack> Getter;
 
@@ -168,6 +168,11 @@ public class ShowCommand implements CommandExecutor
 
         private static void PutMap(@NotNull Slot slot)
         {
+            if (SlotMap == null)
+            {
+                SlotMap = new HashMap<>();
+            }
+
             SlotMap.put(slot.GetName(), slot);
         }
 
