@@ -71,7 +71,7 @@ public class ShowCommand implements CommandExecutor
         var message = new TextComponent(player.getName() + "\u00A77 " + slot.GetVerb() + " ");
         var itemComponent = new TextComponent("\u00A78[\u00A7f" + GetItemName(item) + "\u00A78]");
 
-        itemComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, GetItemDisplay(item)));
+        itemComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, GetItemDisplay(item)));
         message.addExtra(itemComponent);
 
         Bukkit.spigot().broadcast(message);
@@ -86,7 +86,7 @@ public class ShowCommand implements CommandExecutor
 
         if (meta != null)
         {
-            return meta.getDisplayName();
+            return meta.getItemName();
         }
 
         return itemStack.getTranslationKey() + amountString;
@@ -117,12 +117,12 @@ public class ShowCommand implements CommandExecutor
 
     private enum Slot
     {
-        SlotItem(98, "is holding"),
-        SlotOffhand(99, "is holding"),
-        SlotHelmet(103, "is wearing"),
-        SlotChestplate(102, "is wearing"),
-        SlotLeggings(101, "is wearing"),
-        SlotBoots(100, "is wearing"),
+        SlotItem(player -> player.getInventory().getItemInMainHand(), "is holding"),
+        SlotOffhand(player -> player.getInventory().getItemInOffHand(), "is holding"),
+        SlotHelmet(player -> player.getInventory().getHelmet(), "is wearing"),
+        SlotChestplate(player -> player.getInventory().getChestplate(), "is wearing"),
+        SlotLeggings(player -> player.getInventory().getLeggings(), "is wearing"),
+        SlotBoots(player -> player.getInventory().getBoots(), "is wearing"),
         Slot0(0, "has"),
         Slot1(1, "has"),
         Slot2(2, "has"),
